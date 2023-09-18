@@ -1,9 +1,13 @@
 package com.example.quizapp.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 //@Table(name = "questions")
+@AllArgsConstructor
+@NoArgsConstructor
 @Data // getters,setters,equals(), hashCode(), and toString()
 @Entity
 public class Question {
@@ -18,5 +22,6 @@ public class Question {
     private String option4;
     private String rightAnswer;
     private String difficulty;
+    private String category;
 
 }

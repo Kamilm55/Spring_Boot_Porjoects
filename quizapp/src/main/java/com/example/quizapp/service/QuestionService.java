@@ -44,7 +44,7 @@ public class QuestionService {
         return new ResponseEntity<>("Question which is id: " + id + " deleted", HttpStatus.OK);
     }
 
-    public List<Question> getAllQuestionsByDifficulty(String difficulty) {
-        return questionRepository.findAllByDifficulty(difficulty);
+    public List<Question> getAllQuestionsByCategory(String category) {
+        return questionRepository.findAllByCategory(category);
     }
 }
