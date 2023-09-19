@@ -1,6 +1,7 @@
 package com.example.quizapp.controller;
 
 import com.example.quizapp.model.Question;
+import com.example.quizapp.model.QuestionDto;
 import com.example.quizapp.model.Quiz;
 import com.example.quizapp.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,19 @@ public class QuizController {
     }
 
     @GetMapping("/{quizId}")
-    public ResponseEntity<Optional<Quiz>> getQuizById(@PathVariable Integer quizId){
+    public ResponseEntity<List<QuestionDto>> getQuizById(@PathVariable Integer quizId){
         return quizService.getQuizById(quizId);
     }
 
-    // get quiz with title
+    @GetMapping("/title/{quizTitle}")
+    public ResponseEntity<List<QuestionDto>> getQuizByTitle(@PathVariable String quizTitle){
+        return quizService.getQuizByTitle(quizTitle);
+    }
+
+    @PostMapping("/check/{quizId}")
+    public ResponseEntity<Boolean> checkAnswer(@PathVariable Integer quizId , @RequestParam Integer questionId , @RequestParam String userAnswer){
+        return quizService.checkAnswer(quizId,questionId,userAnswer);
+    }
+
+    // overload this methods and check more quiz questions => List
 }
