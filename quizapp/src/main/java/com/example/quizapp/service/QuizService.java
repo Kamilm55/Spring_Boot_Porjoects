@@ -2,6 +2,7 @@ package com.example.quizapp.service;
 
 import com.example.quizapp.dao.QuestionRepository;
 import com.example.quizapp.dao.QuizDao;
+import com.example.quizapp.model.AnswerDTO;
 import com.example.quizapp.model.Question;
 import com.example.quizapp.model.QuestionDto;
 import com.example.quizapp.model.Quiz;
@@ -89,9 +90,35 @@ public class QuizService {
         }
 
         if(selectedQuestion.getRightAnswer().equals(userAnswer)){
-            return new ResponseEntity<Boolean>(true , HttpStatus.OK);
+            return new ResponseEntity<>(true , HttpStatus.OK);
         }else {
-            return new ResponseEntity<Boolean>(false , HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(false , HttpStatus.BAD_REQUEST);
         }
+    }
+
+    // Overload method
+    public ResponseEntity<List<Boolean>> checkAnswer(Integer quizId,List<AnswerDTO> answerDTOList) {
+        List<Boolean> outputList = new ArrayList<>();
+        Optional<Quiz> quiz = quizDao.findById(quizId);
+
+        if(quiz.isEmpty()){
+            throw new IllegalStateException("There is no quiz with this id:" +quizId );
+        }
+
+        List<Question> questionsFromDB = quiz.get().getQuestionList();
+        int i = 0;
+        int right_answer = 0;
+        for (Question question : questionsFromDB){
+
+            if(Objects.equals(question.getRightAnswer() , answerDTOList.get(i).getRightAnswer())){
+                outputList.add(true);
+                right_answer++;
+            }else {
+                outputList.add(false);
+            }
+            i++;
+        }
+        System.out.println(i + " question  , " + right_answer + " right answer");
+        return new ResponseEntity<>(outputList,HttpStatus.OK);
     }
 }

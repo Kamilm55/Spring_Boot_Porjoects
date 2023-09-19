@@ -1,6 +1,6 @@
 package com.example.quizapp.controller;
 
-import com.example.quizapp.model.Question;
+import com.example.quizapp.model.AnswerDTO;
 import com.example.quizapp.model.QuestionDto;
 import com.example.quizapp.model.Quiz;
 import com.example.quizapp.service.QuizService;
@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/quiz")
@@ -37,10 +36,14 @@ public class QuizController {
         return quizService.getQuizByTitle(quizTitle);
     }
 
-    @PostMapping("/check/{quizId}")
+    @PostMapping("/check-by-question/{quizId}")
     public ResponseEntity<Boolean> checkAnswer(@PathVariable Integer quizId , @RequestParam Integer questionId , @RequestParam String userAnswer){
         return quizService.checkAnswer(quizId,questionId,userAnswer);
     }
 
     // overload this methods and check more quiz questions => List
+    @PostMapping("/check-by-quiz/{quizId}")
+    public ResponseEntity<List<Boolean>> checkAnswer( @PathVariable Integer quizId, @RequestBody List<AnswerDTO> answerDTOList){
+        return quizService.checkAnswer(quizId , answerDTOList);
+    }
 }
