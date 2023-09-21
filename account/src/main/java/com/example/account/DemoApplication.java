@@ -9,5 +9,5 @@ public class DemoApplication {
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
     }
-
+//test joined tables in memory database (h2 database)
 }

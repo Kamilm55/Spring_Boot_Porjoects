@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -14,5 +15,5 @@ public class CustomerDto {
     private UUID id;
     private String name;
     private  String surname;
-    private Set<CustomerAccountDto> accounts;
+    private Set<CustomerAccountDto> accounts = new HashSet<>();
 }

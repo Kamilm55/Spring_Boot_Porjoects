@@ -3,10 +3,10 @@ package com.example.account.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -20,5 +20,5 @@ public class AccountDto {
 
     private AccountCustomerDto customer;
 
-    private Set<TransactionDto> transactions;
+    private Set<TransactionDto> transactions = new HashSet<>();
 }
