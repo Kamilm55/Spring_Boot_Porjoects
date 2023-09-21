@@ -1,8 +1,9 @@
 package com.example.account.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -11,17 +12,19 @@ import java.util.UUID;
 
 @Entity
 @Data
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class Transaction {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private TransactionType transactionType = TransactionType.INITIAL ;
     private BigDecimal amount;
-    private LocalDate transactionDate;
+    private LocalDate transactionDate = LocalDate.now();
 
-    @ManyToOne(fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY )
     @JoinColumn(name = "account_id" , nullable = false)
-    private Account account;
+    private Account account; // customer make transaction with account
 
     @Override
     public boolean equals(Object o) {

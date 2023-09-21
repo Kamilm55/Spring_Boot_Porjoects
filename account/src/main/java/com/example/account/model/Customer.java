@@ -1,28 +1,28 @@
 package com.example.account.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Data
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class Customer {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String name;
     private  String surname;
 
-    @OneToMany(mappedBy = "customer" , fetch = FetchType.LAZY)
-    private Set<Account> accounts;
+    @OneToMany(mappedBy = "customer" , fetch = FetchType.EAGER )
+    private Set<Account> accounts = new HashSet<>();
 
+    ///////////////
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
