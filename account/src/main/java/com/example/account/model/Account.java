@@ -24,7 +24,7 @@ public class Account {
     private BigDecimal amount = BigDecimal.valueOf(0);
     private LocalDate creationDate = LocalDate.now();
 
-    @ManyToOne(fetch = FetchType.LAZY ,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY/* ,cascade = CascadeType.ALL*/) // deep dive in table-model-join structure , learn logger and hibernate orm jpa lifecycle
     @JoinColumn(name = "customer_id",nullable = false)
     private Customer customer;
 

@@ -12,15 +12,18 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @NonNull
     private String name;
+    @NonNull
     private  String surname;
 
-    @OneToMany(mappedBy = "customer" , fetch = FetchType.EAGER )
-    private Set<Account> accounts = new HashSet<>();
+    @OneToMany(mappedBy = "customer" , fetch = FetchType.EAGER , cascade = CascadeType.ALL)
+    private Set<Account> accounts /*= new HashSet<>()*/;
 
     ///////////////
     @Override
